@@ -2,12 +2,14 @@ import { ChangeEvent, useState, useContext } from 'react';
 import { Box, Button, TextField } from '@mui/material';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import AddIcon from '@mui/icons-material/AddCircleOutlineOutlined';
-import { EntriesContext } from '../../context/entries/EntriesContext';
+import { EntriesContext } from '../../context/entries';
+import { UIContext } from '../../context/ui';
 
 export const NewEntry = () => {
 
     const { addNewEntry } = useContext(EntriesContext);
-    const [isAdding, setIsAdding] = useState(false);
+    const { isAddingEntry, setIsAddingEntry } = useContext(UIContext);
+
     const [inputValue, setInputValue] = useState('');
     const [touched, setTouched] = useState(false);
 
@@ -18,16 +20,16 @@ export const NewEntry = () => {
         if (inputValue.length === 0) return;
 
         addNewEntry(inputValue);
-        setIsAdding(false);
+        setIsAddingEntry(false);
         setTouched(false);
         setInputValue('');
 
     }
 
     return (
-        <Box sx={{ maringBottom: 2, paddingX: 2 }}>
+        <Box sx={{ marginBottom: 2, paddingX: 2 }}>
             {
-                isAdding ? (
+                isAddingEntry ? (
                     <>
                         <TextField
                             fullWidth
@@ -45,7 +47,7 @@ export const NewEntry = () => {
                         <Box display='flex' justifyContent='space-between'>
                             <Button
                                 variant='text'
-                                onClick={() => setIsAdding(false)}>Cancelar</Button>
+                                onClick={() => setIsAddingEntry(false)}>Cancelar</Button>
                             <Button
                                 variant='outlined'
                                 color='secondary'
@@ -60,7 +62,7 @@ export const NewEntry = () => {
                         startIcon={<AddIcon />}
                         fullWidth
                         variant='outlined'
-                        onClick={() => setIsAdding(true)}>
+                        onClick={() => setIsAddingEntry(true)}>
                         Agregar tarea
                     </Button>
                 )
