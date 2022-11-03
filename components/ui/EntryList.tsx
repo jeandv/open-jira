@@ -21,7 +21,7 @@ export const EntryList: FC<EntryListStatusProps> = ({ status }) => {
     const onDropEntry = (e: DragEvent<HTMLDivElement>) => {
         const id = e.dataTransfer.getData('text');
 
-        console.log(id);
+        console.log(`ID del Card: ${id}`);
     }
 
     return (
